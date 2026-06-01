@@ -126,6 +126,8 @@ music-emotions/
 
 ## Анализ взаимодействия музыки и эмоций
 
+> Если ноутбук с анализом не отображается, то результаты анализа доступны по адресу: https://nbviewer.org/github/CAMblE-CAMblE/music-emotions/blob/main/notebooks/music_emotion_analysis.ipynb
+
 Реализован полный пайплайн: извлечение 22 признаков из аудио → корреляционный анализ → VIF-фильтрация → Random Forest + регрессия → SHAP-интерпретация.
 
 ### Признаки и фильтрация
