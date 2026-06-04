@@ -298,3 +298,31 @@ python src/mert/train_mert.py \
 
 python src/mert/evaluate_mert.py --data_dir data --batch_size 8
 ```
+
+## Генерация музыкальных фрагментов
+
+Добавлен отдельный модуль `src/generation/` для генерации и восстановления музыкальных фрагментов по log-mel спектрограммам. Он не изменяет существующие `baseline`, `mert` и `transitions`.
+
+Основные модели:
+
+- `Conditional U-Net Autoencoder` — основная модель для качественного восстановления log-mel и WAV через Griffin-Lim.
+- `Conditional VQ-VAE` — экспериментальная дискретная модель для генерации и вариаций через codebook.
+- `CVAE` — сохранен как baseline генеративной модели.
+
+Путь к датасету по умолчанию:
+
+```text
+E:/ITMO/2 семестр/ГлубокоеОбучение/Dataset
+```
+
+Ожидаемая структура: `Q1/`, `Q2/`, `Q3/`, `Q4/` с `.mp3` файлами. Для другого расположения используется `--data_dir`.
+
+Короткие инструкции запуска вынесены в отдельные файлы:
+
+- `outputs/generation/unet_ae_commands.md` — основной U-Net AE пайплайн.
+- `outputs/generation/unet_ae_variation_commands.md` — вариации через bottleneck perturbation и ослабление skip connections.
+- `outputs/generation/vqvae_commands.md` — VQ-VAE обучение, синтез и оценка.
+
+Результаты сохраняются в `outputs/generation/`: checkpoints, графики обучения, reconstructed/generated `.wav`, PNG спектрограмм и JSON-метрики.
+
+Оценка генерации включает MSE, MAE, Spectral Convergence, Cosine Similarity, diversity, MOS-шаблон и опциональную MERT-based emotion accuracy при доступном MERT checkpoint.
